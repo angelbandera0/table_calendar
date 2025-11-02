@@ -3,6 +3,7 @@
 
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:simple_gesture_detector/simple_gesture_detector.dart';
@@ -88,6 +89,10 @@ class TableCalendar<T> extends StatefulWidget {
 
   /// Determines the visibility of calendar header.
   final bool headerVisible;
+
+  /// Determines the visibility of calendar divider.
+  final bool dividerVisible;
+  final EdgeInsets dividerPadding;
 
   /// Determines the visibility of the row of days of the week.
   final bool daysOfWeekVisible;
@@ -230,6 +235,7 @@ class TableCalendar<T> extends StatefulWidget {
       CalendarFormat.twoWeeks: '2 weeks',
       CalendarFormat.week: 'Week',
     },
+    this.dividerPadding = const EdgeInsets.symmetric(horizontal: 17),
     this.headerVisible = true,
     this.daysOfWeekVisible = true,
     this.pageJumpingEnabled = false,
@@ -237,6 +243,7 @@ class TableCalendar<T> extends StatefulWidget {
     this.sixWeekMonthsEnforced = false,
     this.shouldFillViewport = false,
     this.weekNumbersVisible = false,
+    this.dividerVisible = true,
     this.rowHeight = 52.0,
     this.daysOfWeekHeight = 16.0,
     this.formatAnimationDuration = const Duration(milliseconds: 200),
@@ -486,6 +493,11 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 },
               );
             },
+          ),
+        if (widget.headerVisible)
+          Padding(
+            padding: widget.dividerPadding,
+            child: const Divider(),
           ),
         Flexible(
           flex: widget.shouldFillViewport ? 1 : 0,
